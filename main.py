@@ -16,11 +16,11 @@ bot = commands.Bot(command_prefix=prefix)#Criação do objeto bot
 @bot.event #Evento "on_ready", é executado quando o bot está devidamente inicializado.
 async def on_ready():
 	print(f'We have logged in as {bot.user}')
-	'''for filename in os.listdir("./cogs/rpg_1"):
+	for filename in os.listdir("./cogs/rpg_1"):
 			if filename.endswith(".py"):
 				bot.load_extension(f"cogs.rpg_1.{filename[:-3]}")
 				print(f"{filename} Initialized")
-'''
+
 
 class Dropdown(nextcord.ui.Select):
 	def __init__(self):
