@@ -43,7 +43,7 @@ class Register(commands.Cog):
         #cur.execute("INSERT INTO users VALUES ('"+str(id)+"'  ,'"+variable[0]+"', '"+variable[1]+"', '"+variable[2]+"', '"+variable[3]+"', '"+variable[4]+"', '"+variable[5]+"', '"+variable[6]+"', '"+variable[7]+"', '"+variable[8]+"', '"+variable[9]+"', '"+variable[10]+"', '"+variable[11]+"', '"+variable[12]+"', '"+variable[13]+"', '"+variable[14]+"', '"+variable[15]+"', '"+variable[16]+"', '"+variable[17]+"', '"+variable[18]+"', '"+variable[19]+"', '"+variable[20]+"', '"+variable[21]+"', '"+variable[22]+"', '"+variable[23]+"', '"+variable[24]+"', '"+variable[25]+"', '"+variable[26]+"', '"+variable[27]+"', '"+variable[28]+"', '"+variable[29]+"', '"+variable[30]+"', '"+variable[31]+"', '"+variable[32]+"', '"+variable[33]+"', '"+variable[34]+"', '"+variable[35]+"', '"+variable[36]+"', '"+variable[37]+"', '"+variable[38]+"', '"+variable[39]+"', '"+variable[40]+"', '"+variable[41]+"', '"+variable[42]+"', '"+variable[43]+"', '"+variable[44]+"', '"+variable[45]+"', '"+variable[46]+"', '"+variable[47]+"')")
 
 
-    @commands.command(name="register")
+    @commands.command(name="register", description="Use este comando para registrar seus dados no sistema.")
     async def register(self, ctx):
 
         #Setting up the FORM
