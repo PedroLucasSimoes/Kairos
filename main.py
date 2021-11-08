@@ -6,6 +6,9 @@ from nextcord.ext.commands import has_permissions
 from discord.ext.forms import Form, ReactionForm, ReactionMenu
 
 import sys
+sys.path.append("E:\\Desktop\\coding\\python\\Kairos\\utils")
+import connection
+
 import os
 import json
 import random as r
@@ -75,6 +78,8 @@ def isMe(ctx):
 @bot.command(name= "reload", hidden=True)
 @commands.check(isMe)
 async def reload(ctx):
+	connection.closeConn()
+
 	if server == "1962":
 		for filename in os.listdir("./cogs/rpg_1"):
 			if filename.endswith(".py"):
