@@ -16,11 +16,13 @@ bot = commands.Bot(command_prefix=prefix)#Criação do objeto bot
 	
 @bot.event #Evento "on_ready", é executado quando o bot está devidamente inicializado.
 async def on_ready():
+	global server
 	print(f'We have logged in as {bot.user}')
 	for filename in os.listdir("./cogs/rpg_1"):
 			if filename.endswith(".py"):
 				bot.load_extension(f"cogs.rpg_1.{filename[:-3]}")
 				print(f"{filename} Initialized")
+			server = "1962"
 
 
 class Dropdown(nextcord.ui.Select):
@@ -33,6 +35,9 @@ class Dropdown(nextcord.ui.Select):
 		super().__init__(placeholder="RPG's", min_values=1, max_values=1, options=selectOptions)
 
 	async def callback(self, interaction: nextcord.Interaction):
+		global server
+		server = self.values[0]
+
 		if self.values[0] == "1962":
 			for filename in os.listdir("./cogs/rpg_1"):
 				if filename.endswith(".py"):
@@ -60,6 +65,19 @@ class DropdownView(nextcord.ui.View):
 async def login(ctx):
 	view = DropdownView()
 	await ctx.send("Selecione o RPG", view=view)
+
+@bot.command()
+async def reload(ctx):
+	if server == "1962":
+		for filename in os.listdir("./cogs/rpg_1"):
+			if filename.endswith(".py"):
+				bot.reload_extension(f"cogs.rpg_1.{filename[:-3]}")
+				print(f"{filename} Reloaded \n\n")
+	elif server == "Ceia de Sangue":
+		for filename in os.listdir("./cogs/rpg_2"):
+			if filename.endswith(".py"):
+				bot.reload_extension(f"cogs.rpg_2.{filename[:-3]}")
+				print(f"{filename} Reloaded \n\n")
 
 
 with open("token.json") as file:
