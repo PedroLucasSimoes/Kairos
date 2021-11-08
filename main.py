@@ -66,7 +66,14 @@ async def login(ctx):
 	view = DropdownView()
 	await ctx.send("Selecione o RPG", view=view)
 
-@bot.command(name= "Reload", hidden=True)
+def isMe(ctx):
+	if ctx.author.id == 525733920633913344:
+		return True
+	else:
+		return False
+
+@bot.command(name= "reload", hidden=True)
+@commands.check(isMe)
 async def reload(ctx):
 	if server == "1962":
 		for filename in os.listdir("./cogs/rpg_1"):
