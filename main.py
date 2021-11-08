@@ -5,6 +5,7 @@ from nextcord.ext import commands
 from nextcord.ext.commands import has_permissions
 from discord.ext.forms import Form, ReactionForm, ReactionMenu
 
+import sys
 import os
 import json
 import random as r
