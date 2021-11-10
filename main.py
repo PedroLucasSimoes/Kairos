@@ -102,6 +102,7 @@ def isMe(ctx):
 @bot.command(name= "reload", hidden=True)
 @commands.check(isMe)
 async def reload(ctx):
+	await ctx.message.delete()
 	for i in utils:
 		importlib.reload(i)
 
