@@ -6,26 +6,50 @@ from nextcord.ext.commands import has_permissions
 from discord.ext.forms import Form, ReactionForm, ReactionMenu
 
 import sys
+
+from nextcord.utils import get
 sys.path.append("E:\\Desktop\\coding\\python\\Kairos\\utils")
+
+#utils
 import connection
 
 import os
 import json
+import importlib
 import random as r
 
 
 prefix = "?"
 bot = commands.Bot(command_prefix=prefix)#Criação do objeto bot
+
+utils = [connection]
+
+
+#Simplesmente não funcionou. Não consegui achar o problema.
+#async def getCogs(rpg, type):
+#	if type == False:
+#		for filename in os.listdir(f"./cogs/rpg_{rpg}"):
+#			if filename.endswith(".py"):
+#				bot.load_extension(f"cogs.rpg_{rpg}.{filename[:-3]}")
+#				print(f"{filename} Initialized")
+#	elif type == True:
+#		for filename in os.listdir(f"./cogs/rpg_{rpg}"):
+#			if filename.endswith(".py"):
+#				bot.reload_extension(f"cogs.rpg_{rpg}.{filename[:-3]}")
+#				print(f"{filename} Initialized")
+
+
+
 	
 @bot.event #Evento "on_ready", é executado quando o bot está devidamente inicializado.
 async def on_ready():
 	global server
 	print(f'We have logged in as {bot.user}')
 	for filename in os.listdir("./cogs/rpg_1"):
-			if filename.endswith(".py"):
-				bot.load_extension(f"cogs.rpg_1.{filename[:-3]}")
-				print(f"{filename} Initialized")
-			server = "1962"
+		if filename.endswith(".py"):
+			bot.load_extension(f"cogs.rpg_1.{filename[:-3]}")
+			print(f"{filename} Initialized")
+		server = "1962"
 
 
 class Dropdown(nextcord.ui.Select):
@@ -78,18 +102,22 @@ def isMe(ctx):
 @bot.command(name= "reload", hidden=True)
 @commands.check(isMe)
 async def reload(ctx):
+	for i in utils:
+		importlib.reload(i)
+
 	connection.closeConn()
 
 	if server == "1962":
 		for filename in os.listdir("./cogs/rpg_1"):
 			if filename.endswith(".py"):
 				bot.reload_extension(f"cogs.rpg_1.{filename[:-3]}")
-				print(f"{filename} Reloaded \n\n")
+				print(f"{filename} Reloaded \n")
 	elif server == "Ceia de Sangue":
 		for filename in os.listdir("./cogs/rpg_2"):
 			if filename.endswith(".py"):
 				bot.reload_extension(f"cogs.rpg_2.{filename[:-3]}")
-				print(f"{filename} Reloaded \n\n")
+				print(f"{filename} Reloaded \n")
+	
 
 
 with open("token.json") as file:
