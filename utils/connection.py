@@ -12,7 +12,7 @@ def connect():
 
 def closeConn():
     try:
-        sqlite3.close(db)
+        db.close()
     except Exception as e:
         print(f"Database could not be closed. Reason:{e}")
     else: return
