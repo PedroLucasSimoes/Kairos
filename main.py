@@ -2,7 +2,7 @@ from logging import PlaceHolder
 #from discord_components.interaction import Interaction
 import disnake
 from disnake.ext import commands
-from disnake.ext.commands import has_permissions
+from disnake.ext.commands import has_permissions, Param
 from discord.ext.forms import Form, ReactionForm, ReactionMenu
 
 import sys
@@ -12,6 +12,7 @@ sys.path.append("E:\\Desktop\\coding\\python\\Kairos\\utils")
 
 #utils
 import connection
+import varHolder
 
 import os
 import json
@@ -20,7 +21,7 @@ import random as r
 
 
 prefix = "?"
-bot = commands.Bot(command_prefix=prefix)#Criação do objeto bot
+bot = commands.Bot(command_prefix=prefix, test_guilds=[845277114559365160], sync_commands=True, reload=True)#Criação do objeto bot
 
 utils = [connection]
 
@@ -88,10 +89,19 @@ class DropdownView(disnake.ui.View):
 		super().__init__()
 		self.add_item(Dropdown())
 
-@bot.command(name="Login", hidden=True)
-async def login(ctx):
+
+
+@bot.slash_command(name="login")
+async def login(inter: disnake.ApplicationCommandInteraction,
+ server: str = Param(desc="Digite o servidor")
+ ):
 	view = DropdownView()
-	await ctx.send("Selecione o RPG", view=view)
+	await inter.response.send_message("Selecione o RPG", view=view, ephemeral=True)
+
+@login.autocomplete("server")
+async def server_autocomp(inter : disnake.ApplicationCommandInteraction, string : str ):
+	string = string.lower()
+	return [serv for serv in varHolder.servers if string in serv.lower()]
 
 def isMe(ctx):
 	if ctx.author.id == 525733920633913344:
