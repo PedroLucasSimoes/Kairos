@@ -7,22 +7,17 @@ import sqlite3
 import traceback
 sys.path.append("E:\\Desktop\\coding\\python\\Kairos\\utils")
 from connection import connect
+import varHolder
 
     
 
-atributos = ["Nome", "Idade", "Pontos de Vida", "Sanidade", "Força", "Destreza", "Inteligência", "Vitalidade", "Resistência",
-        "Corrida", "Escalar", "Furtividade", "Salto",
-        "Detectar Mentiras", "Diplomacia", "Disfarce", "Mentir", "Interrogatório", "Lábia", "Liderança",
-        "Armeiro", "Química", "Camuflagem", "Estratégia", "Falsificação", "Primeiros Socorros", "Medicina", "Rastreamento",
-        "Sobrevivência", "Venefício", "Encontrar", "Dirigir",
-        "Acrobacia", "Arremessar", "Briga", "Sacar Rápido", "Esquiva", "Bloqueio",
-        "Espingarda", "Pistola", "Metralhadora", "Armas Elétricas", "Machado", "Facas", "Espadas", "Espadas Curtas", "Bastão", "Arco"]
 
 
 class Register(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
+        self.atributos = varHolder.atributos
         global db, cur
         db, cur = connect()
         
@@ -31,7 +26,6 @@ class Register(commands.Cog):
         #cur.execute("INSERT INTO users VALUES ('"+str(id)+"'  ,'"+variable[0]+"', '"+variable[1]+"', '"+variable[2]+"', '"+variable[3]+"', '"+variable[4]+"', '"+variable[5]+"', '"+variable[6]+"', '"+variable[7]+"', '"+variable[8]+"', '"+variable[9]+"', '"+variable[10]+"', '"+variable[11]+"', '"+variable[12]+"', '"+variable[13]+"', '"+variable[14]+"', '"+variable[15]+"', '"+variable[16]+"', '"+variable[17]+"', '"+variable[18]+"', '"+variable[19]+"', '"+variable[20]+"', '"+variable[21]+"', '"+variable[22]+"', '"+variable[23]+"', '"+variable[24]+"', '"+variable[25]+"', '"+variable[26]+"', '"+variable[27]+"', '"+variable[28]+"', '"+variable[29]+"', '"+variable[30]+"', '"+variable[31]+"', '"+variable[32]+"', '"+variable[33]+"', '"+variable[34]+"', '"+variable[35]+"', '"+variable[36]+"', '"+variable[37]+"', '"+variable[38]+"', '"+variable[39]+"', '"+variable[40]+"', '"+variable[41]+"', '"+variable[42]+"', '"+variable[43]+"', '"+variable[44]+"', '"+variable[45]+"', '"+variable[46]+"', '"+variable[47]+"', '"+variable[2]+"', '"+variable[3]+"')")
         #db.commit()
 
-    
 
     #@commands.Cog.listener()
     #async def on_ready(self):
@@ -56,12 +50,8 @@ class Register(commands.Cog):
         form.set_timeout(600)
         await form.set_color("0x4521F9")
         
-        for i in atributos:
+        for i in self.atributos:
             form.add_question(f"**Digite o(a):** __{i}__", i.lower())
-        
-        #form.add_question("Nome", "nome")
-        #form.add_question("Idade", "idade") #Used while debugging. 
-        #form.add_question("CPF", "cpf")
         
         result = await form.start()
 
