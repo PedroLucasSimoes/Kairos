@@ -1,5 +1,7 @@
 {
     "python.analysis.extraPaths": [
-        "./utils"
+        "./utils",
+        "./cogs/rpg_1",
+        "./cogs/rpg_1"
     ]
 }
