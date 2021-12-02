@@ -4,6 +4,7 @@ import disnake
 from disnake.ext import commands
 from disnake.ext.commands import has_permissions, Param
 from discord.ext.forms import Form, ReactionForm, ReactionMenu
+import logging
 
 import sys
 
@@ -21,7 +22,8 @@ import random as r
 
 
 prefix = "?"
-bot = commands.Bot(command_prefix=prefix, test_guilds=[845277114559365160], sync_commands=True, reload=True)#Criação do objeto bot
+bot = commands.Bot(command_prefix=prefix, test_guilds=[845277114559365160], reload=True)#Criação do objeto bot
+#logging.basicConfig(level=logging.INFO)
 
 utils = [connection]
 
