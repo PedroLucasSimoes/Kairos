@@ -19,6 +19,17 @@ class Delete(commands.Cog):
         self.bot = bot
         self.db, self.cur = connect()
 
+    @commands.slash_command(name="delete")
+    async def delete(self, inter: disnake.ApplicationCommandInteraction):
+
+        try:
+            self.cur.execute(f"DELETE FROM users WHERE id = ?", (str(inter.author.id),))
+            self.db.commit()
+        except:
+            embedVar = disnake.Embed(title="Dados não encontrados", description="Caso ache que isso seja um erro, entre em contato com Farrys.",  colour=disnake.Colour(value=0x4521F9))
+            await inter.response.send_message(embed=embedVar, ephemeral=True)
+        else:
+            embedVar = disnake.Embed(title="Dados apagados com sucesso.", description="Essa ação é irreversível, espero que tenha noção do que fez.")
 
 
 def setup(bot):
