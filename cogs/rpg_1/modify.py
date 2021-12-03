@@ -54,11 +54,13 @@ class Modify(commands.Cog):
                     self.db.commit()
                 except:
                     embedVar = disnake.Embed(title="Ocorreu um erro", description="Se o erro persistir, contate Farrys.")
+                    await inter.response.send_message(embed=embedVar, ephemeral=True)
                 else:
                     embedVar = disnake.Embed(title=f"Modificando o atributo {atributo}", description=f"Valor Antigo: {data[0]} / Valor Novo: {self.valFinal}")
                     await inter.response.send_message(embed=embedVar, ephemeral=True)
         else:
             embedVar = disnake.Embed(title="Atributo inválido.", description="Verifique se digitou o atributo corretamente.")
+            await inter.response.send_message(embed=embedVar, ephemeral=True)
 
     @info.autocomplete("atributo")
     async def modify_autocomp(self, inter, string : str):
