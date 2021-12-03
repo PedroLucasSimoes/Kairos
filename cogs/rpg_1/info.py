@@ -48,8 +48,8 @@ class Info(commands.Cog):
             cur.execute("SELECT * FROM users WHERE id =?", (str(inter.author.id),))
             data = cur.fetchall()[0]
         except:
-            embedVar = disnake.Embed(title="Dados não encontrados", description="Caso ache que isso seja um erro, entre em contato com Farrys.")
-            await inter.response.send_message(embed=embedVar)
+            embedVar = disnake.Embed(title="Dados não encontrados", description="Caso ache que isso seja um erro, entre em contato com Farrys.",  colour=self.getColor(0x4521F9))
+            await inter.response.send_message(embed=embedVar, ephemeral=True)
         
         #pprint(data)
 
