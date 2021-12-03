@@ -1,4 +1,4 @@
-atributos = ["Nome", "Idade", "Pontos de Vida", "Sanidade", "Força", "Destreza", "Inteligência", "Vitalidade", "Resistência",
+atributos = ["Nome", "Idade", "Vida", "Sanidade", "Força", "Destreza", "Inteligência", "Vitalidade", "Resistência",
         "Corrida", "Escalar", "Furtividade", "Salto",
         "Detectar Mentiras", "Diplomacia", "Disfarce", "Mentir", "Interrogatório", "Lábia", "Liderança",
         "Armeiro", "Química", "Camuflagem", "Estratégia", "Falsificação", "Primeiros Socorros", "Medicina", "Rastreamento",

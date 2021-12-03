@@ -16,8 +16,7 @@ class Info(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
-        global db, cur
-        db, cur = connect()
+        self.db, self.cur = connect()
         
         #cur.execute("SELECT * FROM users")
         #data = cur.fetchall()
@@ -45,13 +44,13 @@ class Info(commands.Cog):
     página: int = Param(desc="Selecione a página", min_value=0, max_value=4)
     ):
         try:
-            cur.execute("SELECT * FROM users WHERE id =?", (str(inter.author.id),))
-            data = cur.fetchall()[0]
+            self.cur.execute("SELECT * FROM users WHERE id =?", (str(inter.author.id),))
+            data = self.cur.fetchall()[0]
         except:
             embedVar = disnake.Embed(title="Dados não encontrados", description="Caso ache que isso seja um erro, entre em contato com Farrys.",  colour=self.getColor(0x4521F9))
             await inter.response.send_message(embed=embedVar, ephemeral=True)
         
-        #pprint(data)
+        #pprint(data)8/
 
         embedVar = self.getEmbed(data)
         if página == 1:
