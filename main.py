@@ -93,7 +93,7 @@ class DropdownView(disnake.ui.View):
 
 
 
-@bot.slash_command(name="login")
+@bot.slash_command(name="login", description="Inicia o bot no servidor desejado")
 async def login(inter: disnake.ApplicationCommandInteraction,
  server: str = Param(desc="Digite o servidor")
  ):

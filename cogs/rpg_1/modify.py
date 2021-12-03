@@ -25,7 +25,7 @@ class Modify(commands.Cog):
         else:
             return False
 
-    @commands.slash_command(name="modify")
+    @commands.slash_command(name="modify", description="Modifica seus atributos")
     async def info(self, inter: disnake.ApplicationCommandInteraction, 
     atributo: str = Param(desc="Atributo a ser modificado."),
     valor: str = Param(desc="Novo valor para o atributo")):

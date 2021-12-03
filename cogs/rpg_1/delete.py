@@ -19,7 +19,7 @@ class Delete(commands.Cog):
         self.bot = bot
         self.db, self.cur = connect()
 
-    @commands.slash_command(name="delete")
+    @commands.slash_command(name="delete", description="Deleta todos seus dados")
     async def delete(self, inter: disnake.ApplicationCommandInteraction):
 
         try:

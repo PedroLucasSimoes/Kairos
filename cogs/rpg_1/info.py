@@ -39,7 +39,7 @@ class Info(commands.Cog):
         return embed
 
 
-    @commands.slash_command(name="info")
+    @commands.slash_command(name="info", description="Mostra as suas informações")
     async def info(self, inter, 
     página: int = Param(desc="Selecione a página", min_value=0, max_value=4)
     ):
