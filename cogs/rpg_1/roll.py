@@ -48,17 +48,16 @@ class Roll(commands.Cog):
                 return True
             else: False
 
-    async def answeringInter(self, inter: disnake.ApplicationCommandInteraction, sucFail: bool, hasExtra: bool, extra = 0):
-        print(sucFail)
+    async def answeringInter(self, inter: disnake.ApplicationCommandInteraction, data : int, hasExtra: bool, extra = 0, diceLimit : int = 6):
         if not hasExtra:
-            if sucFail:
+            if self.rollCheck(extra, data, diceLimit):
                 await inter.response.send_message(f"Sucesso <- {self.result}{self.resultList}")
-            if not sucFail:
+            else:
                 await inter.response.send_message(f"Falha <- {self.result}{self.resultList}")
         elif hasExtra:
-            if sucFail:
+            if self.rollCheck(extra, data):
                 await inter.response.send_message(f"Sucesso <- {self.result} = {self.resultList} + {extra}")
-            elif not sucFail:
+            else:
                 await inter.response.send_message(f"Falha <- {self.result} = {self.resultList} + {extra}")
 
     @commands.slash_command(name="roll", description="Rolagem de testes")
@@ -88,29 +87,15 @@ class Roll(commands.Cog):
                 await inter.response.send_message(embed=embedVar, ephemeral=True)
             else:
                 if atributo != "Sanidade":
-                    if self.rollCheck(extra, int(data)):
-                        if extra == 0:
-                            await self.answeringInter(inter, True, False)
-                        else:
-                            await self.asnweringInter(inter, True, True, extra)
+                    if extra == 0:
+                        await self.answeringInter(inter, int(data), hasExtra= False)
                     else:
-                        if extra == 0:
-                            await self.answeringInter(inter, False, False)
-                        else:
-                            await self.answeringInter(inter, False, True, extra)
+                        await self.answeringInter(inter, int(data), hasExtra= True, extra= extra)
                 else:
-                    if self.rollCheck(extra, int(data), 100):
-                        if extra == 0:
-                            await self.answeringInter(inter, True, False)
-                        else:
-                            await self.answeringInter(inter, True, True, extra)
-                        
-
+                    if extra == 0:
+                        await self.answeringInter(inter, int(data), hasExtra= False, diceLimit= 100)
                     else:
-                        if extra == 0:
-                            await inter.response.send_message(f"Falha <- [{self.result}]")
-                        else:
-                            await self.answeringInter(inter, True, True, extra)
+                        await self.answeringInter(inter, int(data), hasExtra= True, extra= extra, diceLimit=100)
 
         else:
             embedVar = disnake.Embed(title="Atributo inválido.", description="Verifique se digitou o atributo corretamente.")
