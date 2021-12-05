@@ -34,7 +34,7 @@ class Info(commands.Cog):
     def createPage(self, data, embed: disnake.Embed, start: int, finish: int):
         
         for i in varHolder.atributos[start:finish]:
-            print(f"{i}:{str(int(data[varHolder.atributos.index(i)]) + 1)}")
+            #print(f"{i}:{str(int(data[varHolder.atributos.index(i)]) + 1)}")
             embed.add_field(name=i, value=str(int(data[varHolder.atributos.index(i)]) + 1), inline=True)
         return embed
 
@@ -49,8 +49,6 @@ class Info(commands.Cog):
         except:
             embedVar = disnake.Embed(title="Dados não encontrados", description="Caso ache que isso seja um erro, entre em contato com Farrys.",  colour=self.getColor(0x4521F9))
             await inter.response.send_message(embed=embedVar, ephemeral=True)
-        
-        #pprint(data)8/
 
         embedVar = self.getEmbed(data)
         if página == 1:
