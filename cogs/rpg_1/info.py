@@ -16,7 +16,7 @@ class Info(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
-        self.db, self.cur = connect()
+        self.db, self.cur = connect("1962")
         
         #cur.execute("SELECT * FROM users")
         #data = cur.fetchall()

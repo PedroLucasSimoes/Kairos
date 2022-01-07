@@ -14,6 +14,7 @@ sys.path.append("E:\\Desktop\\coding\\python\\Kairos\\utils")
 #utils
 import connection
 import varHolder
+import randomorg
 
 import os
 import json
@@ -25,7 +26,7 @@ prefix = "?"
 bot = commands.Bot(command_prefix=prefix, test_guilds=[845277114559365160], reload=True)#Criação do objeto bot
 #logging.basicConfig(level=logging.INFO)
 
-utils = [connection]
+utils = [connection, randomorg]
 
 
 #Simplesmente não funcionou. Não consegui achar o problema.

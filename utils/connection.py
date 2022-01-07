@@ -1,9 +1,9 @@
 import sqlite3
 
-def connect():
+def connect(server : str):
     global db, cur
     try:
-        db = sqlite3.connect('E:\Desktop\coding\python\Kairos\db\db_1962.db')
+        db = sqlite3.connect(f'E:\Desktop\coding\python\Kairos\db\db_{server}.db')
         cur = db.cursor()
     except Exception as e:
         print(f"An error ocurred while initializing the db. Error: {e}")

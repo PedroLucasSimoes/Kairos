@@ -17,7 +17,7 @@ class Modify(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
-        self.db, self.cur = connect()
+        self.db, self.cur = connect("1962")
 
     def isValidAtr(self, atr):
         if atr in varHolder.atributos:

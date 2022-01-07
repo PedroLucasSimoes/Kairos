@@ -10,6 +10,7 @@ import sqlite3
 import sys
 import time
 sys.path.append("E:\\Desktop\\coding\\python\\Kairos\\utils")
+import randomorg
 from connection import connect
 import varHolder
 
@@ -21,25 +22,19 @@ class Roll(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
-        self.db, self.cur = connect()
+        self.db, self.cur = connect("1962")
     
     def isValidAtr(self, atr : str):
-        print(f"titled:{atr.title()}")
         if atr.title() in varHolder.atributos: return True
         else: return False
 
     def diceRolling(self, extra, diceAmount: int, diceLimit: int):
-        result = 0
-        resultList = []
-        for i in range(0, diceAmount):
-            d6 = r.randint(1, diceLimit)
-            result += d6
-            resultList.append(d6)
-        result += extra
-        return result, resultList
+        dices = randomorg.get(minimum=1, maximum=diceLimit, amt=diceAmount)
 
-    def rollCheck(self, extra, atr, diceLimit: int = 6):
-        self.result, self.resultList = self.diceRolling(extra, 3, diceLimit)
+        return dices.getSum()
+
+    def rollCheck(self, extra, atr, diceAmount, diceLimit: int = 6):
+        self.resultList, self.result = self.diceRolling(extra, diceAmount, diceLimit)
         if self.result in [3,4]:
             return True
         elif self.result in [17, 18]:
@@ -49,15 +44,15 @@ class Roll(commands.Cog):
                 return True
             else: return False
 
-    async def answeringInter(self, inter: disnake.ApplicationCommandInteraction, data : int, hasExtra: bool, extra = 0, diceLimit : int = 6):
+    async def answeringInter(self, inter: disnake.ApplicationCommandInteraction, data : int, hasExtra: bool, extra = 0, diceLimit : int = 6, diceAmount : int = 3):
         self.Purple = disnake.Colour(0x4521F9)
         if not hasExtra:
-            if self.rollCheck(extra, data, diceLimit):
+            if self.rollCheck(extra, data, diceAmount, diceLimit):
                 embedVar = disnake.Embed(title=f"Teste de {self.atrOld}", description=f"Sucesso <- {self.result} = {self.resultList}", colour=self.Purple)
             else:
                 embedVar = disnake.Embed(title=f"Teste de {self.atrOld}", description=f"Falha <- {self.result} = {self.resultList}", colour=self.Purple)
         elif hasExtra:
-            if self.rollCheck(extra, data):
+            if self.rollCheck(extra, data, diceLimit, diceAmount):
                 embedVar = disnake.Embed(title=f"Teste de {self.atrOld}", description=f"Sucesso <- {self.result} = {self.resultList} + {extra}", colour=self.Purple)
             else:
                 embedVar = disnake.Embed(title=f"Teste de {self.atrOld}", description=f"Falha <- {self.result} = {self.resultList} + {extra}", colour=self.Purple)
@@ -98,9 +93,9 @@ class Roll(commands.Cog):
                         await self.answeringInter(inter, int(data), hasExtra= True, extra= extra)
                 else:
                     if extra == 0:
-                        await self.answeringInter(inter, int(data), hasExtra= False, diceLimit= 100)
+                        await self.answeringInter(inter, int(data), hasExtra= False, diceLimit= 100, diceAmount=1)
                     else:
-                        await self.answeringInter(inter, int(data), hasExtra= True, extra= extra, diceLimit=100)
+                        await self.answeringInter(inter, int(data), hasExtra= True, extra= extra, diceLimit=100, diceAmount=1)
 
         else:
             embedVar = disnake.Embed(title="Atributo inválido.", description="Verifique se digitou o atributo corretamente.")
